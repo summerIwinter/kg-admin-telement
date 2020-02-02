@@ -14,9 +14,9 @@
             </div>
             <div class="bottom clearfix">
               <div class="button">
-                <el-button size="medium" class="delBut">删除</el-button>
+                <el-button size="medium" class="delBut" @click="handleDelItem(item)">删除</el-button>
                 <!-- <el-button type="text" class="miniBut movBut">移动</el-button> -->
-                <el-button type="primary" size="medium" class="manBut">管理</el-button>
+                <el-button type="primary" size="medium" class="manBut" @click="handleItem(item)">管理</el-button>
               </div>
             </div>
           </el-card>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { getDataList } from '@/api/data'
+import { getDataList, delDataItem } from '@/api/data'
 import NewDataset from './components/NewDataset'
 
 export default {
@@ -47,6 +47,7 @@ export default {
       const datasets_four = []
       this.datasets.forEach((item, index) => {
         const row = Math.floor(index / 4)
+        item['index'] = index
         if (!datasets_four[row]) {
           datasets_four[row] = []
         }
@@ -66,6 +67,19 @@ export default {
       getDataList().then(response => {
         this.datasets = response.data.items
         this.loading = false
+      })
+    },
+    handleItem(item) {
+      this.$router.push({
+        path: '/data/item',
+        query: {
+          id: item.id
+        }
+      })
+    },
+    handleDelItem(item) {
+      delDataItem({ 'id': item.id }).then(response => {
+        this.$delete(this.datasets, item['index'])
       })
     }
   }

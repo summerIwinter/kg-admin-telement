@@ -14,3 +14,11 @@ export function addDataItem(data) {
     data
   })
 }
+
+export function delDataItem(data) {
+  return request({
+    url: '/data/item',
+    method: 'delete',
+    data
+  })
+}
