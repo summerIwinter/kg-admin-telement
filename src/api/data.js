@@ -6,3 +6,11 @@ export function getDataList() {
     method: 'get'
   })
 }
+
+export function addDataItem(data) {
+  return request({
+    url: '/data/item',
+    method: 'post',
+    data
+  })
+}
