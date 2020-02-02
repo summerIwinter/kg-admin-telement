@@ -58,12 +58,19 @@ export const constantRoutes = [
   {
     path: '/data',
     component: Layout,
+    redirect: ' /data/items',
     children: [
       {
-        path: 'index',
-        name: 'Index',
+        path: 'items',
+        name: 'Items',
         component: () => import('@/views/datamanage/index'),
         meta: { title: '数据管理', icon: 'example' }
+      },
+      {
+        path: 'item',
+        name: 'Item',
+        component: () => import('@/views/datamanage/item'),
+        hidden: true
       }
     ]
   },

@@ -17,6 +17,7 @@
             :action="uploadApi"
             :file-list="fileList"
             :on-change="handleChange"
+            :on-success="handleSuccess"
           >
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
@@ -24,14 +25,16 @@
       </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="csvData = false">取 消</el-button>
-        <el-button type="primary" @click="csvData = false">确 定</el-button>
+        <el-button :loading="loading" @click="csvData = false">取 消</el-button>
+        <el-button type="primary" :loading="loading" @click="createDataset">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { addDataItem } from '@/api/data'
+
 export default {
   name: 'NewDataset',
   data() {
@@ -43,7 +46,8 @@ export default {
         describe: '',
         fileId: ''
       },
-      uploadApi: 'http:localhost:5000/api/upload',
+      loading: false,
+      uploadApi: '/api/upload',
       // uploadApi: 'https://jsonplaceholder.typicode.com/posts/',
       fileList: []
     }
@@ -51,6 +55,23 @@ export default {
   methods: {
     handleChange(file, fileList) {
       this.fileList = fileList.slice(-1)
+    },
+    handleSuccess(response, file, fileList) {
+    },
+    createDataset() {
+      // 检测请求参数
+      // 检测是否上传文件以及响应
+      this.csvForm.fileId = this.fileList[0].response.data.file_id
+      this.loading = true
+      addDataItem(this.csvForm).then(response => {
+        this.$router.push({
+          path: '/data/item',
+          query: {
+            id: this.csvForm.fileId
+          }
+        })
+        this.loading = false
+      })
     }
   }
 }
