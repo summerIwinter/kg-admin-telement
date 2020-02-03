@@ -22,3 +22,12 @@ export function delDataItem(data) {
     data
   })
 }
+
+export function getDataItem(data) {
+  return request.get('/data/item', { params: data })
+  // return request({
+  //   url: '/data/item',
+  //   method: 'get',
+  //   params: data
+  // })
+}
