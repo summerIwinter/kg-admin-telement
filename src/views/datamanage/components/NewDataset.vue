@@ -67,7 +67,7 @@ export default {
         this.$router.push({
           path: '/data/item',
           query: {
-            id: this.csvForm.fileId
+            id: response.data.item_id
           }
         })
         this.loading = false

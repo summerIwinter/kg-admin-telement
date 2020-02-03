@@ -74,11 +74,11 @@ export default {
       })
     },
     handleEdit(index, item) {
-      console.log(item.id)
+      console.log(item._id)
       console.log(item)
     },
     handleDelete(index, item) {
-      console.log(item.id)
+      console.log(item._id)
       console.log(item)
       this.$delete(this.items, index)
     }

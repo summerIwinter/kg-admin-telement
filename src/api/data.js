@@ -24,10 +24,9 @@ export function delDataItem(data) {
 }
 
 export function getDataItem(data) {
-  return request.get('/data/item', { params: data })
-  // return request({
-  //   url: '/data/item',
-  //   method: 'get',
-  //   params: data
-  // })
+  return request({
+    url: '/data/item',
+    method: 'get',
+    params: data
+  })
 }
