@@ -30,3 +30,19 @@ export function getDataItem(data) {
     params: data
   })
 }
+
+export function delDataItemRow(data) {
+  return request({
+    url: '/data/item/row',
+    method: 'delete',
+    data
+  })
+}
+
+export function updateDataItemRow(data) {
+  return request({
+    url: '/data/item/row',
+    method: 'put',
+    data
+  })
+}
